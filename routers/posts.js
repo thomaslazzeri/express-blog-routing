@@ -4,11 +4,17 @@ import { posts } from '../reference/posts.js';
 export const postsRouter = express.Router();
 
 postsRouter.get('/', (req, res) => {
-    res.send("Lista dei post");
+    res.json(posts);
 });
 
 postsRouter.get('/:id', (req, res) => {
-    res.send(`Dettaglio del post ${req.params.id}`);
+    const post = posts.find(p => p.id === parseInt(req.params.id));
+
+    if (!post) {
+        return res.status(404).json({ message: "Post non trovato " });
+    }
+
+    res.json(post);
 });
 
 postsRouter.post('/', (req, res) => {
