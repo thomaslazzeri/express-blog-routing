@@ -1,12 +1,11 @@
 import express from 'express';
+import { postsRouter } from './routers/posts';
 
 const app = express();
 const port = 3000;
 
-app.get('/posts', (req, res) => {
-    res.send("Lista dei post");
-});
+app.use('/posts', postsRouter)
 
-app.delete('/posts/1', (req, res) => {
-    res.send("Cancellazione del post");
+app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
 });
